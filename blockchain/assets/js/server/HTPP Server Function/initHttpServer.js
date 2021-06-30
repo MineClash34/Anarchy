@@ -6,6 +6,7 @@ const generateNextBlock = require("../../blockchain/Block/generateNextBlock.js")
 const WS_SEND = require("../P2P Server Function/WS_SEND.js");
 const P2P_MSG = require("../P2P Server Function/P2P_MSG.js")
 const socket = require("../P2P Server Function/socket.js");
+const connectToPeers = require("../P2P Server Function/connectToPeers.js");
 
 module.exports = () => { //server http
     const http_port = process.env.HTTP_PORT || 3001;
