@@ -1,0 +1,10 @@
+node_modules/
+package-lock.json
+package.json
+blockchain/node_modules/
+blockchain/package-lock.json
+blockchain/package.json
+client/node_modules/
+client/package-lock.json
+client/package.json
+request.js
