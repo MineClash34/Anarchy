@@ -2,8 +2,8 @@ const isValidNewBlock = require("./isValidNewBlock.js");
 const getLatestBlock = require("./getLatestBlock.js");
 const BlockChain = require("../BlockChain/basicBlockChain.js");
 
-module.exports = (newBlock) => {
-    if (isValidNewBlock(newBlock, getLatestBlock())) {
+module.exports = async (newBlock) => {
+    if (isValidNewBlock(JSON.parse(JSON.stringify(await newBlock, null, 2)), await getLatestBlock())) {
         BlockChain.BlockChainPush(newBlock);
     }
 };

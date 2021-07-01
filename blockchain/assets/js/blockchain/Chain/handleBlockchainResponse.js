@@ -4,10 +4,10 @@ const replaceChain = require("./replaceChain.js")
 const WS_SEND = require("./../../server/P2P Server Function/WS_SEND");
 const P2P_MSG = require("./../../server/P2P Server Function/P2P_MSG")
 
-module.exports = (message) => {
+module.exports = async (message) => {
     var receivedBlocks = JSON.parse(message.data).sort((b1, b2) => (b1.index - b2.index));
     var latestBlockReceived = receivedBlocks[receivedBlocks.length - 1];
-    var latestBlockHeld = getLatestBlock();
+    var latestBlockHeld = await getLatestBlock();
     if (latestBlockReceived.index > latestBlockHeld.index) {
         console.log('Dernier block de la blockchain : ' + latestBlockHeld.index + '. Block reçu par le pair : ' + latestBlockReceived.index);
         if (latestBlockHeld.hash === latestBlockReceived.previousHash) {

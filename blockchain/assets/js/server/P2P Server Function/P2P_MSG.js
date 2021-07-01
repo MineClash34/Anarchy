@@ -10,11 +10,11 @@ const BlockChain = require("../../blockchain/BlockChain/basicBlockChain.js");
 module.exports = {
     queryChainLengthMsg: () => ({'type': MessageType.QUERY_LATEST}),
     queryAllMsg: () => ({'type': MessageType.QUERY_ALL}),
-    responseChainMsg: () => ({
-        'type': MessageType.RESPONSE_BLOCKCHAIN, 'data': JSON.stringify(BlockChain.getBlockChain)
+    responseChainMsg: async () => ({
+        'type': MessageType.RESPONSE_BLOCKCHAIN, 'data': JSON.stringify(await BlockChain.getBlockChain())
     }),
-    responseLatestMsg: () => ({
+    responseLatestMsg: async () => ({
         'type': MessageType.RESPONSE_BLOCKCHAIN,
-        'data': JSON.stringify([getLatestBlock(BlockChain.getBlockChain)])
+        'data': JSON.stringify([await getLatestBlock()])
     })
 }

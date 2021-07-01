@@ -13,15 +13,15 @@ module.exports = () => { //server http
     const app = express();
     app.use(bodyParser.json());
 
-    app.get('/blocks', (req, res) => {
-        var blockchain = BlockChain.getBlockChain;
+    app.get('/blocks', async (req, res) => {
+        var blockchain = await BlockChain.getBlockChain();
         res.send(JSON.stringify(blockchain))
     });
-    app.post('/mineBlock', (req, res) => {
+    app.post('/mineBlock', async (req, res) => {
         var newBlock = generateNextBlock(req.body.data);
-        addBlock(newBlock);
+        addBlock(await newBlock);
         WS_SEND.broadcast(P2P_MSG.responseLatestMsg());
-        console.log('block ajouté : ' + JSON.stringify(newBlock));
+        console.log('block ajouté : ' + JSON.stringify(await newBlock));
         res.send();
     });
     app.get('/peers', (req, res) => {

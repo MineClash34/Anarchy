@@ -1,6 +1,7 @@
 const calculateHashForBlock = require("../Hash/calculateHashForBlock.js");
 
 module.exports = (newBlock, previousBlock) => {
+
     if (previousBlock.index + 1 !== newBlock.index) {
         console.log('index invalide');
         return false;
