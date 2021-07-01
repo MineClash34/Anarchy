@@ -1,5 +1,7 @@
 var axios = require('axios');
+const { read } = require('fs');
 const readline = require("readline");
+
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -14,8 +16,9 @@ axios.get('http://127.0.0.1:3001/blocks')
         }
         else {
             blockchain.slice(1).forEach(block => {
+                console.log("")
                 if (block.data.status == 1) {
-                    console.log("user id: " + block.data.userid + "\nmessage: " + block.data.content + "\n\n");
+                    console.log("user id: " + block.data.userid + "\nmessage: " + block.data.content + "\n");
                 };
             });
         }
@@ -24,13 +27,21 @@ axios.get('http://127.0.0.1:3001/blocks')
 
 function sendMessage () {
     rl.question("> ", function(message) {
-        axios({
-            method: 'post',
-            url: "http://127.0.0.1:3001/mineBlock",
-            body: {
-                data: {"userid":0, "status":1, "content": message}
-            }
-        });
+        if (message == "") {
+            readline.moveCursor(process.stdout, 0, -1)
+            readline.clearScreenDown(process.stdout)
+        }
+        else {
+            var userid = 0
+            axios({
+                method: 'post',
+                url: "http://127.0.0.1:3001/mineBlock",
+                data: {data: {"userid":userid, "status":1, "content": message}}
+            }); 
+            readline.moveCursor(process.stdout, 0, -2)
+            readline.clearScreenDown(process.stdout)
+            console.log("\nuser id: " + userid + "\nmessage: " + message + "\n")
+        }
         sendMessage();
     });
 }
