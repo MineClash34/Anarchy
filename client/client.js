@@ -1,7 +1,12 @@
 var axios = require('axios');
-var prompt = require("prompt-sync")({sigint: true});
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-axios.get('http://localhost:3001/blocks')
+
+axios.get('http://127.0.0.1:3001/blocks')
     .then((response) => {
         var blockchain = response.data;
         if (blockchain.length == 1) {
@@ -14,19 +19,18 @@ axios.get('http://localhost:3001/blocks')
                 };
             });
         }
-        while (true) {
-            message = prompt("> ")
-            axios({
-                method: 'post',
-                url: "http://localhost:3001/mineBlock",
-                body: {
-                    data: {"userid":0, "status":1, "content": "Salut bg"}
-                }
-            });
-            console.log(message);
-        }
+        sendMessage();
     });
 
-var sendMessage = (message) => {
-    axios.post('http://localhost:3001/mineBlock', {"userid":0, "status":1, "content": message});
+function sendMessage () {
+    rl.question("> ", function(message) {
+        axios({
+            method: 'post',
+            url: "http://127.0.0.1:3001/mineBlock",
+            body: {
+                data: {"userid":0, "status":1, "content": message}
+            }
+        });
+        sendMessage();
+    });
 }
