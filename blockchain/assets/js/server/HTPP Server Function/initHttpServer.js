@@ -18,7 +18,7 @@ module.exports = () => { //server http
         res.send(JSON.stringify(blockchain))
     });
     app.post('/mineBlock', (req, res) => {
-        var newBlock = generateNextBlock(req.data);
+        var newBlock = generateNextBlock(req.body.data);
         addBlock(newBlock);
         WS_SEND.broadcast(P2P_MSG.responseLatestMsg());
         console.log('block ajouté : ' + JSON.stringify(newBlock));

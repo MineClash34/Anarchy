@@ -16,7 +16,13 @@ axios.get('http://localhost:3001/blocks')
         }
         while (true) {
             message = prompt("> ")
-            axios.post('http://localhost:3001/mineBlock', {"userid":0, "status":1, "content": message});
+            axios({
+                method: 'post',
+                url: "http://localhost:3001/mineBlock",
+                body: {
+                    data: {"userid":0, "status":1, "content": "Salut bg"}
+                }
+            });
             console.log(message);
         }
     });

@@ -2,6 +2,7 @@ const getLatestBlock = require("../Block/getLatestBlock.js");
 const BlockChain = require("../BlockChain/basicBlockChain.js");
 const replaceChain = require("./replaceChain.js")
 const WS_SEND = require("./../../server/P2P Server Function/WS_SEND");
+const P2P_MSG = require("./../../server/P2P Server Function/P2P_MSG")
 
 module.exports = (message) => {
     var receivedBlocks = JSON.parse(message.data).sort((b1, b2) => (b1.index - b2.index));
@@ -12,10 +13,10 @@ module.exports = (message) => {
         if (latestBlockHeld.hash === latestBlockReceived.previousHash) {
             console.log("Nous pouvons appondre le block reçu à notre chaîne");
             BlockChain.BlockChainPush(latestBlockReceived);
-            WS_SEND.broadcast(responseLatestMsg());
+            WS_SEND.broadcast(P2P_MSG.responseLatestMsg());
         } else if (receivedBlocks.length === 1) {
             console.log("Nous devons interroger notre chaîne depuis notre pair");
-            WS_SEND.broadcast(queryAllMsg());
+            WS_SEND.broadcast(P2P_MSG.queryAllMsg());
         } else {
             console.log("La blockchain reçue est plus longue que la blockchain actuelle");
             replaceChain(receivedBlocks);

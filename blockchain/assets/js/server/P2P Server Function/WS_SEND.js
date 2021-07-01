@@ -1,6 +1,7 @@
 const sockets = require("./socket.js")
 
+var write = (ws, message) => ws.send(JSON.stringify(message))
 module.exports = {
-    write: (ws, message) => ws.send(JSON.stringify(message)),
-    broadcast: (message) => sockets.getSockets.forEach(socket => this.write(socket, message))
+    write: write,
+    broadcast: (message) => sockets.getSockets.forEach(socket => write(socket, message))
 }
