@@ -10,14 +10,16 @@ const rl = readline.createInterface({
 axios.get('http://127.0.0.1:3001/blocks')
     .then((response) => {
         var blockchain = response.data;
+
         if (blockchain.length == 1) {
             console.log("aucun message n'a encore été save");
         }
         else {
             blockchain.slice(1).forEach(block => {
+                var data = JSON.parse(block.data);             
                 console.log("")
-                if (block.data.status == 1) {
-                    console.log("user id: " + block.data.userid + "\nmessage: " + block.data.content + "\n");
+                if (data.status == 1) {
+                    console.log("user id: " + data.userid + "\nmessage: " + data.content + "\n");
                 };
             });
         }
