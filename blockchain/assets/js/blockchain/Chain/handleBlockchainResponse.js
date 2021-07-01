@@ -1,7 +1,7 @@
 const getLatestBlock = require("../Block/getLatestBlock.js");
 const BlockChain = require("../BlockChain/basicBlockChain.js");
 const replaceChain = require("./replaceChain.js")
-const WS_SEND = require("../../../server/P2P Server Function/WS_SEND.js");
+const WS_SEND = require("./../../server/P2P Server Function/WS_SEND");
 
 module.exports = (message) => {
     var receivedBlocks = JSON.parse(message.data).sort((b1, b2) => (b1.index - b2.index));

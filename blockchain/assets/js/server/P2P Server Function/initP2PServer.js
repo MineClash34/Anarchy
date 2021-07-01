@@ -1,4 +1,5 @@
 const WebSocket = require("ws");
+const initConnection = require("./initConnection")
 
 module.exports = () => {
     const p2p_port = process.env.P2P_PORT || 6001;

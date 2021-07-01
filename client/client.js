@@ -1,8 +1,7 @@
 var axios = require('axios');
 var prompt = require("prompt-sync")({sigint: true});
-var querystring = require("querystring")
 
-axios.get('http://localhost:3002/getData')
+axios.get('http://localhost:3001/blocks')
     .then((response) => {
         var blockchain = response.data;
         if (blockchain.length == 1) {
@@ -17,15 +16,11 @@ axios.get('http://localhost:3002/getData')
         }
         while (true) {
             message = prompt("> ")
-            axios({
-                method: 'post',
-                url: 'http://127.0.0.1:3001/mineBlock',
-                data: {"userid":0, "status":1, "content": message}
-            });
+            axios.post('http://localhost:3001/mineBlock', {"userid":0, "status":1, "content": message});
             console.log(message);
         }
     });
 
 var sendMessage = (message) => {
-    axios.post('http://localhost:3002/mineBlock', querystring.stringify({"userid":0, "status":1, "content": message}));
+    axios.post('http://localhost:3001/mineBlock', {"userid":0, "status":1, "content": message});
 }

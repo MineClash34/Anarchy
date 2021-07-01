@@ -1,6 +1,6 @@
 const BlockChain = require("../BlockChain/basicBlockChain.js");
 const isValidChain = require("./isValidChain.js");
-const WS_SEND = require("../../../server/P2P Server Function/WS_SEND.js");
+const WS_SEND = require("./../../server/P2P Server Function/WS_SEND");
 
 
 module.exports = (newBlocks) => {
